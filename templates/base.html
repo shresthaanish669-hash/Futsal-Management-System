@@ -1,0 +1,24 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Kickoff | Futsal booking{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a class="brand" href="{% url 'home' %}"><span class="brand-mark">K</span> KICKOFF</a>
+    <nav><a href="{% url 'venue_list' %}">Venues</a><a href="{% url 'booking_calendar' %}">Live calendar</a><a href="{% url 'tournament_list' %}">Tournaments</a></nav>
+    <div class="nav-actions">{% if user.is_authenticated %}<a class="user-link" href="{% url 'dashboard' %}">Hi, {{ user.first_name|default:user.username }}</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="link-button">Log out</button></form>{% else %}<a href="{% url 'login' %}">Log in</a><a class="button button-small" href="{% url 'signup' %}">Join now</a>{% endif %}</div>
+  </div></header>
+  {% if messages %}<div class="container messages">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  <main>{% block content %}{% endblock %}</main>
+  <footer><div class="container footer-grid"><div><a class="brand" href="{% url 'home' %}"><span class="brand-mark">K</span> KICKOFF</a><p>One place for better games, smarter venues, and happier squads.</p></div><div><strong>Explore</strong><a href="{% url 'venue_list' %}">Book a court</a><a href="{% url 'tournament_list' %}">Tournaments</a></div><div><strong>For venue owners</strong><a href="/admin/">Manage courts</a><a href="{% url 'owner_report' %}">Sales reports</a></div></div><div class="container copyright">© 2026 Kickoff Futsal Management System · Built in Nepal</div></footer>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
+

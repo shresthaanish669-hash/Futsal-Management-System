@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block title %}Courts near you | Kickoff{% endblock %}{% block content %}
+<section class="page-hero"><div class="container"><p class="eyebrow">BOOK A GAME</p><h1>Courts ready when you are.</h1><p>Choose a ground, then see its pricing and available slots.</p></div></section>
+<section class="section container"><div class="venue-grid">{% for venue in venues %}<article class="venue-card"><div class="venue-art art-{{ forloop.counter|divisibleby:2|yesno:'2,1' }}"><span>⚽</span><small>{{ venue.courts.count }} courts</small></div><div class="card-content"><p class="location">⌖ {{ venue.address }}</p><h3>{{ venue.name }}</h3><p>{{ venue.description|default:'Friendly courts and fast booking.'|truncatechars:85 }}</p><div class="card-bottom"><span>{{ venue.phone }}</span><a href="{% url 'venue_detail' venue.id %}">→</a></div></div></article>{% empty %}<div class="empty-card"><h3>No venues yet</h3><p>Your administrator can add the first one from the management area.</p></div>{% endfor %}</div></section>
+{% endblock %}
+

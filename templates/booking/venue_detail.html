@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-hero compact"><div class="container"><a class="back" href="{% url 'venue_list' %}">← All venues</a><p class="eyebrow">⌖ {{ venue.address }}</p><h1>{{ venue.name }}</h1><p>{{ venue.description|default:'Choose a court below to see pricing and book your game.' }}</p></div></section>
+<section class="section container"><div class="section-heading"><div><p class="eyebrow">AVAILABLE COURTS</p><h2>Choose your pitch</h2></div><span class="muted">Call {{ venue.phone }} for help</span></div><div class="court-list">{% for court in courts %}<article class="court-row"><div class="court-icon">⚽</div><div class="court-info"><h3>{{ court.name }}</h3><p>{{ court.surface }} · Up to {{ court.capacity }} players</p></div><div class="court-price"><small>From</small><strong>Rs {{ court.price_per_hour }}</strong><span>/ hour</span></div><a class="button button-small" href="{% url 'book_court' court.id %}">Book slot →</a></article>{% empty %}<p class="muted">There are no bookable courts at this venue yet.</p>{% endfor %}</div></section>
+{% endblock %}
+
